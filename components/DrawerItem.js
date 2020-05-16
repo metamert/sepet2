@@ -85,7 +85,7 @@ class DrawerItem extends React.Component {
             ? Linking.openURL(
                 "https://demos.creative-tim.com/argon-pro-react-native/docs/"
               ).catch(err => console.error("An error occurred", err))
-            : navigation.navigate(title)
+            : navigation.navigate(title,{title:"adamsın"})
         }
       >
         <Block flex row style={containerStyles}>

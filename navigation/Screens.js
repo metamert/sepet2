@@ -161,11 +161,12 @@ function HomeStack(props) {
   );
 }
 function myCards(props) {
+  console.log(props)
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
         name="Sepetim"
-        component={Pro}
+       
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -178,7 +179,11 @@ function myCards(props) {
           ),
           cardStyle: { backgroundColor: "#F8F9FE" }
         }}
-      />
+      >
+        {p => <Pro  props  />}
+
+
+      </Stack.Screen>
     </Stack.Navigator>
   );
 }
@@ -246,7 +251,7 @@ function AppStack(props) {
      
       <Drawer.Screen name="Profile" component={ProfileStack} />
       <Drawer.Screen name="Account" component={Register} />
-      <Drawer.Screen name="myCards" component={myCards} />
+      <Drawer.Screen name="Sepetim" component={myCards} />
       <Drawer.Screen name="Articles" component={ArticlesStack} />
     </Drawer.Navigator>
   );

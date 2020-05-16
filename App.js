@@ -6,10 +6,13 @@ import { Block, GalioProvider } from "galio-framework";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { YellowBox } from 'react-native';
+
 import { store, persistor } from './redux/store';
+import {decode, encode} from 'base-64'
 
+if (!global.btoa) {  global.btoa = encode }
 
+if (!global.atob) { global.atob = decode }
 
 // Before rendering any navigation stack
 import { enableScreens } from "react-native-screens";
@@ -43,18 +46,20 @@ function cacheImages(images) {
 }
 
 export default class App extends React.Component {
-
-  constructor(props){
-super(props)
-    YellowBox.ignoreWarnings(['Setting a timer']);
-
-  }
   state = {
     isLoadingComplete: false
   };
 
   render() {
-   
+    if (!this.state.isLoadingComplete) {
+      return (
+        <AppLoading
+          startAsync={this._loadResourcesAsync}
+          onError={this._handleLoadingError}
+          onFinish={this._handleFinishLoading}
+        />
+      );
+    } else {
       return (
 
         <Provider store={store}>
@@ -70,7 +75,7 @@ super(props)
         </NavigationContainer>
         </Provider>
       );
-    
+    }
   }
 
   _loadResourcesAsync = async () => {

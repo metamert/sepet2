@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Dimensions, ScrollView ,Alert,ToastAndroid,Text} from 'react-native';
-import { Block, theme,Button,Toast} from 'galio-framework';
+import { Block, theme,Button} from 'galio-framework';
 
 
 import { Card } from '../components';
@@ -26,7 +26,7 @@ class Home extends React.Component {
             <Card item={articles[2]}  />
           </Block>
           <Card item={articles[3]} horizontal />
-        <Button style={{marginTop:50,marginBottom:20}} onPress={()=>this.props.navigation.navigate('Sepetim')}> Sepete Git </Button>
+        <Button style={{marginTop:50,marginBottom:20}} onPress={()=>this.props.navigation.navigate("Sepetim")}> Sepete Git </Button>
      
       
         </Block>

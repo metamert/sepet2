@@ -13,7 +13,16 @@ import { createStructuredSelector } from 'reselect';
 import Icon from 'react-native-vector-icons/Feather';
 import {firestore} from "../firebase/firebase"
 import Mcards from "../components/mycards"
+
 class Pro extends React.Component {
+constructor(props){
+super(props)
+this.state={
+  s:false,
+  durum:false
+}
+}
+
 
 finish=()=>{
 let Array={}
@@ -27,7 +36,18 @@ Array[item.title]={urunAdı:item.title,adetmiktarı:item.quantity,fiyat:item.qua
 Array.siparisZamanı=new Date().toLocaleString()
 Array.adres="antalya / akdeniz üni"
 
- firestore.collection('Siparisler').doc().set(Array).then().catch(e=>console.log(e))
+ firestore.collection('Siparisler').doc().set(Array).then(()=>{
+
+this.setState({s:true})
+
+setTimeout(() => {
+  this.setState({s:false})
+}, 2000);
+this.props.suc()
+
+}
+
+ ).catch(e=>console.log(e))
 
 
 
@@ -36,38 +56,57 @@ Array.adres="antalya / akdeniz üni"
 
   render() {
     const { navigation } = this.props;
-console.log("pro")
+console.log(this.props)
     return (
       <Block flex center style={styles.home}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.articles}>
        
-        <Block flex>
+{this.state.s?(<View>
 
-  {this.props.cartitems.map(item=>
-    
-    <Mcards key={item.title} img={item.image} name={item.title} price={item.price} quantity={item.quantity}></Mcards>
-    
-    )}
-     
-          
+<Icon name="check-circle" size={200} style={styles.ss}></Icon>
+
+</View>):(
+
+
+<Block flex>
+
+{this.props.cartitems.map(item=>
+  
+  <Mcards key={item.title} img={item.image} name={item.title} price={item.price} quantity={item.quantity}></Mcards>
+  
+  )}
    
-       
-  <Button color="error" style={styles.ct} onPress={this.finish}>
-    
-    <Text style={styles.st}>
-    Siparişi tamamla  :  {
+        
+ 
+     
+<Button color="error" style={styles.ct} onPress={this.finish}>
+  
+  <Text style={styles.st}>
+  Siparişi tamamla  :  {
 
 this.props.total
 
-  } $
+} $
 
 
-    </Text>
- </Button>
-      
-        </Block>
+  </Text>
+</Button>
+<Button color="error" style={styles.ct} onPress={()=>this.setState({durum:true})}>
+  
+  <Text style={styles.st}>
+  Siparişi tamamla  
+
+
+  </Text>
+</Button>
+      </Block>
+    
+
+)}
+
+
       
       </ScrollView>
       </Block>
@@ -102,6 +141,10 @@ st:{color:"white"},
     display:"flex",
     flexDirection:"row",
    height:100
+  },
+  ss:{
+    color:"green",
+    margin:50
   }
 
 

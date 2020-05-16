@@ -18,7 +18,10 @@ const { width, height } = Dimensions.get("screen");
 const thumbMeasure = (width - 48 - 32) / 3;
 
 class Profile extends React.Component {
+
   render() {
+    console.log(this.props.route)
+    console.log(this.props)
     return (
       <Block flex style={styles.profile}>
         <Block flex>
