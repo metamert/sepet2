@@ -1,7 +1,7 @@
 import iskender from "../assets/imgs/iskender.jpg"
-import salata from "../assets/imgs/salata.jpg"
+import salata from "../assets/imgs/salata.png"
 import cor from "../assets/imgs/corba.jpg"
-import ham from "../assets/imgs/hamburger.jpg"
+import ham from "../assets/imgs/hamburger.png"
 
 export default [
   {

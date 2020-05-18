@@ -1,8 +1,8 @@
 import React from 'react';
 import { withNavigation } from '@react-navigation/compat';
-import { TouchableOpacity, StyleSheet, Platform, Dimensions } from 'react-native';
+import { TouchableOpacity, StyleSheet, Platform, Dimensions, View } from 'react-native';
 import { Button, Block, NavBar, Text, theme } from 'galio-framework';
-
+import Icon2 from "react-native-vector-icons/Entypo"
 import Icon from './Icon';
 import Input from './Input';
 import Tabs from './Tabs';
@@ -11,7 +11,7 @@ import argonTheme from '../constants/Theme';
 const { height, width } = Dimensions.get('window');
 const iPhoneX = () => Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896);
 
-const BellButton = ({isWhite, style, navigation}) => (
+const BellButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
     <Icon
       family="ArgonExtra"
@@ -23,7 +23,7 @@ const BellButton = ({isWhite, style, navigation}) => (
   </TouchableOpacity>
 );
 
-const BasketButton = ({isWhite, style, navigation}) => (
+const BasketButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('myCards')}>
     <Icon
       family="ArgonExtra"
@@ -31,11 +31,11 @@ const BasketButton = ({isWhite, style, navigation}) => (
       name="basket"
       color={argonTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
     />
-   
+
   </TouchableOpacity>
 );
 
-const SearchButton = ({isWhite, style, navigation}) => (
+const SearchButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('myCards')}>
     <Icon
       size={16}
@@ -53,64 +53,50 @@ class Header extends React.Component {
   }
   renderRight = () => {
     const { white, title, navigation } = this.props;
+    console.log(theme.SIZES)
+    return (
 
-    if (title === 'Title') {
-      return [
-        <BellButton key='chat-title' navigation={navigation} isWhite={white} />,
-        <BasketButton key='basket-title' navigation={navigation} isWhite={white} />
-      ]
-    }
 
-    switch (title) {
-      case 'Home':
-        return ([
-          <BellButton key='chat-home' navigation={navigation} isWhite={white} />,
-          <BasketButton key='basket-home' navigation={navigation} isWhite={white} />
-        ]);
-        case 'Sepetim':
-          return ([
-            <BellButton key='chat-home' navigation={navigation} isWhite={white} />,
-            <BasketButton key='basket-home' navigation={navigation} isWhite={white} />
-          ]);
-      case 'Deals':
-        return ([
-          <BellButton key='chat-categories' navigation={navigation} />,
-          <BasketButton key='basket-categories' navigation={navigation} />
-        ]);
-      case 'Categories':
-        return ([
-          <BellButton key='chat-categories' navigation={navigation} isWhite={white} />,
-          <BasketButton key='basket-categories' navigation={navigation} isWhite={white} />
-        ]);
-      case 'Category':
-        return ([
-          <BellButton key='chat-deals' navigation={navigation} isWhite={white} />,
-          <BasketButton key='basket-deals' navigation={navigation} isWhite={white} />
-        ]);
-      case 'Profile':
-        return ([
-          <BellButton key='chat-profile' navigation={navigation} isWhite={white} />,
-          <BasketButton key='basket-deals' navigation={navigation} isWhite={white} />
-        ]);
-      case 'Product':
-        return ([
-          <SearchButton key='search-product' navigation={navigation} isWhite={white} />,
-          <BasketButton key='basket-product' navigation={navigation} isWhite={white} />
-        ]);
-      case 'Search':
-        return ([
-          <BellButton key='chat-search' navigation={navigation} isWhite={white} />,
-          <BasketButton key='basket-search' navigation={navigation} isWhite={white} />
-        ]);
-      case 'Settings':
-        return ([
-          <BellButton key='chat-search' navigation={navigation} isWhite={white} />,
-          <BasketButton key='basket-search' navigation={navigation} isWhite={white} />
-        ]);
-      default:
-        break;
-    }
+      <View style={styles.cont}>
+
+
+        <View style={styles.item1}  >
+
+        <Icon2 name="location-pin" size={25} style={{color:"white"}}></Icon2>
+            <Text  size={12} style={{color:"white"}}>Zurich</Text>
+        
+
+        </View>
+        <View style={styles.cont2}>
+         
+            <Icon2 name="clock" size={25} style={{color:"white"}}></Icon2>
+           
+          
+          <View style={styles.item1,{paddingBottom:5}} >
+            <Text style={{ textAlign: "center",color:"white" }} size={13} >Delivery times</Text>
+            <Text style={{ textAlign: "center",color:"white" }} size={12} >11.30-14.30</Text>
+            <Text style={{ textAlign: "center",color:"white" }} size={12} >12.30-12.30</Text>
+           
+          </View>
+
+
+        </View>
+
+        <View style={styles.item11}  >
+
+        
+        <Icon2 name="shopping-cart" size={25} style={{color:"white",marginRight:15}}></Icon2>
+        <Text  size={12} style={{color:"white"}}>min 35.00</Text>
+
+
+        </View>
+
+      </View>
+
+    )
+
   }
+
   renderSearch = () => {
     const { navigation } = this.props;
     return (
@@ -138,7 +124,7 @@ class Header extends React.Component {
         </Button>
         <Button shadowless style={styles.tab} onPress={() => navigation.navigate('Sepetim')}>
           <Block row middle>
-            <Icon size={16} name="bag-17" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON}/>
+            <Icon size={16} name="bag-17" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
             <Text size={16} style={styles.tabTitle}>{optionRight || 'Fashion'}</Text>
           </Block>
         </Button>
@@ -148,7 +134,7 @@ class Header extends React.Component {
   renderTabs = () => {
     const { tabs, tabIndex, navigation } = this.props;
     const defaultTab = tabs && tabs[0] && tabs[0].id;
-    
+
     if (!tabs) return null;
 
     return (
@@ -181,7 +167,7 @@ class Header extends React.Component {
 
     const navbarStyles = [
       styles.navbar,
-      bgColor && { backgroundColor: bgColor }
+
     ];
 
     return (
@@ -194,23 +180,19 @@ class Header extends React.Component {
           right={this.renderRight()}
           rightStyle={{ alignItems: 'center' }}
           left={
-            <Icon 
-              name={back ? 'chevron-left' : "menu"} family="entypo" 
-              size={20} onPress={this.handleLeftPress} 
-              color={iconColor || (white ? argonTheme.COLORS.WHITE : argonTheme.COLORS.ICON)}
-              style={{ marginTop: 2 }}
+            <Icon
+              name={back ? 'chevron-left' : "menu"} family="entypo"
+              size={40} onPress={this.handleLeftPress}
+              color={"white"}
+              style={{ marginTop: 0 }}
             />
-              
+
           }
           leftStyle={{ paddingVertical: 12, flex: 0.2 }}
-          titleStyle={[
-            styles.title,
-            { color: argonTheme.COLORS[white ? 'WHITE' : 'HEADER'] },
-            titleColor && { color: titleColor }
-          ]}
+         
           {...props}
         />
-        
+
       </Block>
     );
   }
@@ -225,12 +207,16 @@ const styles = StyleSheet.create({
     width: '100%',
     fontSize: 16,
     fontWeight: 'bold',
+    marginLeft: 20
   },
   navbar: {
     paddingVertical: 0,
     paddingBottom: theme.SIZES.BASE * 1.5,
     paddingTop: iPhoneX ? theme.SIZES.BASE * 4 : theme.SIZES.BASE,
     zIndex: 5,
+    backgroundColor: "red"
+
+
   },
   shadow: {
     backgroundColor: theme.COLORS.WHITE,
@@ -249,8 +235,37 @@ const styles = StyleSheet.create({
     top: 9,
     right: 12,
   },
+  cont: {
+    display: "flex",
+    flexDirection: "row",
+    position: "absolute",
+    right: 0,
+    width: width * 3 / 4
+  },
+  cont2: {
+    display: "flex",
+    flexDirection: "row",
+    flex: 2,
+    alignItems:"center"
+  }
+
+  , item1: {
+
+    display: "flex",
+    justifyContent: "center",
+    flex: 1,
+
+  },
+  item11: {
+
+    display: "flex",
+    justifyContent:"center",
+    alignItems:"flex-end",
+    flex: 1,
+
+  },
   header: {
-    backgroundColor: theme.COLORS.WHITE,
+    backgroundColor: "red",
   },
   divider: {
     borderRightWidth: 0.3,
@@ -282,10 +297,10 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: argonTheme.COLORS.HEADER
   },
-  cardnumber:{
-    position:"absolute",
-    left:5,
-    color:"red"
+  cardnumber: {
+    position: "absolute",
+    left: 5,
+    color: "red"
   }
 });
 

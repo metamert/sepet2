@@ -57,7 +57,7 @@ additemtocard=()=>{
 
 
 
-      <Block row={horizontal}  flex style={cardContainer} 
+      <Block row={horizontal} card flex style={cardContainer} 
      
       
       >
@@ -72,14 +72,21 @@ additemtocard=()=>{
         }
         >
           <Block flex space="between" style={styles.cardDescription}>
-           
+            <View style={styles.cardContainer}>
 
             <Text size={14} style={styles.cardTitle}>{item.title}</Text>
-           
+            <Text size={14} style={styles.cardprice}>{item.price} $</Text>
             
-            
+            </View>
           
-      
+            <View style={styles.cardContainer}  >
+
+
+            <Text  size={12} muted={!ctaColor} color={ctaColor || argonTheme.COLORS.ACTIVE} bold >{item.cta}</Text>
+
+             {this.state.toggle&&<Icon name="checkcircle" size={16} style={{marginLeft:30,color:"#1EBEA5"}} />}
+
+</View>
           </Block>
       
          
@@ -106,20 +113,16 @@ const styles = StyleSheet.create({
     marginVertical: theme.SIZES.BASE,
     borderWidth: 0,
     minHeight: 114,
-   
     marginBottom: 16
   },
   cardTitle: {
     flex: 1,
     flexWrap: 'wrap',
-    paddingBottom: 6,
-    textAlign:"center",
-    color:"white",
-    fontSize:20
+    paddingBottom: 6
   },
 cardContainer:{
 display:"flex",
-flexDirection:"row",
+flexDirection:"row"
 
 },
 
@@ -129,10 +132,7 @@ flexDirection:"row",
     paddingBottom: 6
   },
   cardDescription: {
-    padding: theme.SIZES.BASE / 2,
-    backgroundColor:"red",
-     borderBottomRightRadius:10,
-     borderBottomLeftRadius:10
+    padding: theme.SIZES.BASE / 2
   },
   imageContainer: {
     borderRadius: 3,
@@ -149,7 +149,6 @@ flexDirection:"row",
   horizontalStyles: {
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
-  
   },
   verticalStyles: {
     borderBottomRightRadius: 0,
@@ -164,7 +163,6 @@ flexDirection:"row",
     shadowRadius: 4,
     shadowOpacity: 0.1,
     elevation: 2,
-    
   },
 });
 

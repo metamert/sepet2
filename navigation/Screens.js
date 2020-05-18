@@ -6,7 +6,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { Block } from "galio-framework";
-
+import Kategoric from "../screens/Kategori"
 // screens
 import Home from "../screens/Home";
 import Onboarding from "../screens/Onboarding";
@@ -146,7 +146,7 @@ function HomeStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title="Home"
+              title=""
               search
               options
               navigation={navigation}
@@ -188,7 +188,34 @@ function myCards(props) {
   );
 }
 
+function Kategori(props) {
+  console.log(props)
+  return (
+    <Stack.Navigator mode="card" headerMode="screen">
+      <Stack.Screen
+        name="Kategori"
+       
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title="Kategori"
+              search
+              
+              options
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" }
+        }}
+      >
+        {p => <Kategoric props  />}
 
+
+      </Stack.Screen>
+    </Stack.Navigator>
+  );
+}
 
 
 
@@ -248,7 +275,7 @@ function AppStack(props) {
      
       <Drawer.Screen name="Home" component={HomeStack} />
       
-     
+      <Drawer.Screen name="Kategori" component={Kategori} />
       <Drawer.Screen name="Profile" component={ProfileStack} />
       <Drawer.Screen name="Account" component={Register} />
       <Drawer.Screen name="Sepetim" component={myCards} />
