@@ -53,7 +53,7 @@ class Header extends React.Component {
   }
   renderRight = () => {
     const { white, title, navigation } = this.props;
-    console.log(theme.SIZES)
+  
     return (
 
 

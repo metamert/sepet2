@@ -5,6 +5,8 @@ import * as Location from 'expo-location';
 import Icon from "react-native-vector-icons/Entypo"
 import Loca from "../components/location"
 import { Card } from '../components';
+import {connect} from "react-redux"
+import {addlocation} from "../redux/location"
 import articles from '../constants/articles';
 import yemek from "../assets/imgs/yemek.png"
 const { width } = Dimensions.get('screen');
@@ -22,6 +24,32 @@ class Home extends React.Component {
   }
 
  }
+async componentDidMount() {
+  
+  let { status } = await Location.requestPermissionsAsync();
+      if (status !== 'granted') {
+      this.setState({myNumber:"Permission to access location was denied"})
+      }
+
+try {
+  let location = await Location.getCurrentPositionAsync({});
+  let c=await Location.reverseGeocodeAsync(location.coords)
+  
+if(c){
+this.props.addLocation(c)
+
+this.setState({myNumber:this.props.getLocation[0].postalCode})
+}else{
+  Alert.alert("your location couldnot found")
+}
+
+ 
+  
+  
+} catch (error) {
+  Alert.alert("error")
+}
+}
 
 
  onChanged=(text)=>{
@@ -39,41 +67,21 @@ class Home extends React.Component {
   }
   this.setState({ myNumber: newText });
 }
-find= async ()=>{
+find=()=>{
+const local=this.props.getLocation[0].postalCode
 
-this.setState({myNumber:"waiting..."})
-
-  let { status } = await Location.requestPermissionsAsync();
-      if (status !== 'granted') {
-      this.setState({myNumber:"Permission to access location was denied"})
-      }
-
-try {
-  let location = await Location.getCurrentPositionAsync({});
-  let c=await Location.reverseGeocodeAsync(location.coords)
-  
-  if(c[0].postalCode){this.setState({myNumber:c[0].postalCode})}
-  else{
-    Alert.alert("your location couldnot found")
-  }
-  
-  
-} catch (error) {
-  Alert.alert("error")
+if(local){
+this.setState({myNumber:local})
+}else{
+  this.setState({myNumber:"could not get your postCode please enter manually"})
 }
 
-    
-
-
-    
-   
 }
 
 
   renderArticles = () => {
    
-    
-    console.log(this.state.myNumber)
+ 
     
 
     return (
@@ -83,7 +91,7 @@ try {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.articles}>
      <Block flex center style={styles.home}>
-    <Image source={yemek} style={{margin:50}}></Image>
+    <Image source={yemek} style={{margin:10,width:200,height:200}}></Image>
     
     <Block style={{marginTop:40}}>
     <SwitchToggle
@@ -111,7 +119,7 @@ try {
         textRightStyle={{ fontSize: 18 }}
         textLeftStyle={{ fontSize: 18}}
         containerStyle={{
-          marginTop: 16,
+          marginTop: 10,
           width: 180,
           height: 65,
           borderRadius: 30,
@@ -132,8 +140,9 @@ try {
         duration={200}
       />
  </Block>
-{!this.state.toggle&&(
- <Block width={width * 0.8} style={{ marginBottom: 15,marginTop:50 }}>
+{!this.state.toggle?(
+[ 
+<Block width={width * 0.8} style={{ marginBottom: 15,marginTop:20 }}>
                      
  <Input
 value={this.state.myNumber}
@@ -144,14 +153,25 @@ onChangeText={(txt) => this.onChanged(txt)}
  family="Entypo"
  color="black"
  />
-</Block>
-
-)}
+</Block>,
 <Block style={styles.container}>
 <Button color="error" style={styles.button} onPress={this.find}><Text style={styles.tex}>Find my Location</Text></Button>
 <Button color="error" style={styles.button} onPress={()=>this.props.navigation.navigate("Kategori")}><Text style={styles.tex}>Save</Text></Button>
-
 </Block>
+
+
+
+]):(
+
+<Block style={styles.container}>
+
+<Button color="error" style={styles.button} onPress={()=>this.props.navigation.navigate("Kategori")}><Text style={styles.tex}>Contınue</Text></Button>
+</Block>
+
+)
+
+}
+
 
 
 </Block>
@@ -196,4 +216,11 @@ const styles = StyleSheet.create({
 
 });
 
-export default Home;
+const s=(state)=>(
+  {getLocation:state.location.location}
+)
+const d=(dispatch)=>(
+  {addLocation:(l)=>dispatch(addlocation(l))}
+)
+
+export default connect(s,d)(Home);

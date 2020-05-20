@@ -4,10 +4,11 @@ import { Easing, Animated, Dimensions } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
+import Map from "../components/map"
 import { Block } from "galio-framework";
 import Kategoric from "../screens/Kategori"
 // screens
+import Urun from "../screens/Urun"
 import Home from "../screens/Home";
 import Onboarding from "../screens/Onboarding";
 import Pro from "../screens/Pro";
@@ -161,7 +162,7 @@ function HomeStack(props) {
   );
 }
 function myCards(props) {
-  console.log(props)
+ 
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
@@ -170,7 +171,7 @@ function myCards(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title="Sepetim"
+              title=""
               search
               options
               navigation={navigation}
@@ -187,9 +188,44 @@ function myCards(props) {
     </Stack.Navigator>
   );
 }
+function Urunler(props) {
+
+  return (
+    <Stack.Navigator mode="card" headerMode="screen">
+      <Stack.Screen
+        name="Urunler"
+       
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title=""
+              search
+              
+              options
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" }
+        }}
+      >
+        {p => <Urun props  />}
+
+
+      </Stack.Screen>
+    </Stack.Navigator>
+  );
+}
+
+
+
+
+
+
+
 
 function Kategori(props) {
-  console.log(props)
+  
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
@@ -198,7 +234,7 @@ function Kategori(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title="Kategori"
+              title=""
               search
               
               options
@@ -276,6 +312,7 @@ function AppStack(props) {
       <Drawer.Screen name="Home" component={HomeStack} />
       
       <Drawer.Screen name="Kategori" component={Kategori} />
+      <Drawer.Screen name="Urunler" component={Urunler} />
       <Drawer.Screen name="Profile" component={ProfileStack} />
       <Drawer.Screen name="Account" component={Register} />
       <Drawer.Screen name="Sepetim" component={myCards} />

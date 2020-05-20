@@ -20,7 +20,7 @@ enableScreens();
 
 import Screens from "./navigation/Screens";
 import { Images, articles, argonTheme } from "./constants";
-
+import {Provider as PaperProvider} from "react-native-paper"
 // cache app images
 const assetImages = [
   Images.Onboarding,
@@ -65,12 +65,14 @@ export default class App extends React.Component {
         <Provider store={store}>
         <NavigationContainer>
         <PersistGate persistor={persistor}>
+        <PaperProvider>
           <GalioProvider theme={argonTheme}>
           
             <Block flex>
               <Screens />
             </Block>
           </GalioProvider>
+          </PaperProvider>
           </PersistGate>
         </NavigationContainer>
         </Provider>

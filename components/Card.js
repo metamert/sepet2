@@ -68,15 +68,15 @@ additemtocard=()=>{
           </Block>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback 
-        onPress={this.additemtocard
+        onPress={()=>this.props.navigation.navigate("Urunler")
         }
         >
           <Block flex space="between" style={styles.cardDescription}>
            
 
-            <Text size={14} style={styles.cardTitle}>{item.title}</Text>
+            <Text size={11} style={styles.cardTitle}>{item.title}</Text>
            
-            
+          
             
           
       
@@ -112,10 +112,10 @@ const styles = StyleSheet.create({
   cardTitle: {
     flex: 1,
     flexWrap: 'wrap',
-    paddingBottom: 6,
+    paddingBottom: 2,
     textAlign:"center",
     color:"white",
-    fontSize:20
+    fontSize:18
   },
 cardContainer:{
 display:"flex",
@@ -126,10 +126,10 @@ flexDirection:"row",
   cardPrice: {
     flex: 1,
     flexWrap: 'wrap',
-    paddingBottom: 6
+    paddingBottom: 0
   },
   cardDescription: {
-    padding: theme.SIZES.BASE / 2,
+    padding: 5,
     backgroundColor:"red",
      borderBottomRightRadius:10,
      borderBottomLeftRadius:10

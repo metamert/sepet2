@@ -4,6 +4,7 @@ import { Block, theme,Button} from 'galio-framework';
 
 import Loca from "../components/location"
 import { Card } from '../components';
+import Map from "../components/map"
 import articles from '../constants/articles';
 import img from "../assets/imgs/resim2.jpg"
 const { width } = Dimensions.get('screen');
@@ -19,8 +20,8 @@ class Home extends React.Component {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.articles}>
-      
-      <Image source={img} style={{width:"100%",height:200}}></Image>
+    
+   
      
         <Block flex>
     
@@ -52,6 +53,7 @@ class Home extends React.Component {
   render() {
     return (
       <Block flex center style={styles.home}>
+      <Map></Map>  
         {this.renderArticles()}
         <Image source={img} style={{width:"100%",height:200,position:"absolute",bottom:0,opacity:0.5,zIndex:-1}}></Image>
       </Block>
